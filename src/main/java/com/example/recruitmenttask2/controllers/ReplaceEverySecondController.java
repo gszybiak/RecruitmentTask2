@@ -11,7 +11,7 @@ import static com.example.recruitmenttask2.tasks.ReplaceEverySecondController.re
 public class ReplaceEverySecondController {
     @PostMapping("/replaceEverySecond")
     @ResponseBody
-    public void readAndCount(@RequestParam String inputPath, @RequestParam String outPutPath) {
-        replaceEverySecond(inputPath, outPutPath);
+    public void readAndCount(@RequestParam String inputFile, @RequestParam String outputFile) {
+        replaceEverySecond(inputFile, outputFile);
     }
 }

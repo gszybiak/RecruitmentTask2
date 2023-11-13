@@ -1,5 +1,6 @@
 package com.example.recruitmenttask2.controllers;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -13,15 +14,15 @@ import static com.example.recruitmenttask2.tasks.ReadAndCount.*;
 public class ReadAndCountController {
     @PostMapping("/readAndCount")
     @ResponseBody
-    public void readAndCount(@RequestParam String path) {
-        Map<String, Integer> occurrencesMap = loadDataFromFile(path);
-        printStringsAndOccurences(occurrencesMap);
+    public void readAndCount(@RequestParam String nameFile) {
+        Map<String, Integer> occurrencesMap = loadDataFromFile(nameFile);
+        printItems(occurrencesMap);
     }
 
     @PostMapping("/readAndCountInAscending")
     @ResponseBody
-    public void readAndCountInAscending(@RequestParam String path) {
-        Map<String, Integer> occurrencesMap = loadDataFromFile(path);
-        printStringsAndOccurencesInAscendingOrderOfOccurences(occurrencesMap);
+    public void readAndCountInAscending(@RequestParam String nameFile) {
+        Map<String, Integer> occurrencesMap = loadDataFromFile(nameFile);
+        printItemsOrderByOccurences(occurrencesMap);
     }
 }

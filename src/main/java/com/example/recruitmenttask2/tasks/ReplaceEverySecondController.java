@@ -3,27 +3,32 @@ package com.example.recruitmenttask2.tasks;
 import java.io.*;
 
 public class ReplaceEverySecondController {
-    public static void replaceEverySecond(String inputPath, String outPath) {
+    public static void replaceEverySecond(String inputFile, String outputFile) {
         try {
-            BufferedReader bufferedReader = new BufferedReader(new FileReader(inputPath));
-            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(outPath));
+            InputStream inputStream = ReplaceEverySecondController.class.getClassLoader().getResourceAsStream(inputFile);
+            OutputStream outputStream = new FileOutputStream(outputFile);
 
-            String line;
-            int brCount = 0;
+            if (inputStream != null) {
+                try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+                     BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(outputStream))) {
 
-            while ((line = bufferedReader.readLine()) != null) {
-                int index = -1;
+                    String line;
+                    int brCount = 0;
 
-                while ((index = line.indexOf("<br>", index + 1)) != -1) {
-                    brCount++;
+                    while ((line = bufferedReader.readLine()) != null) {
+                        int index = -1;
 
-                    line = (brCount % 2 == 0) ? (line.substring(0, index) + "</br></br>" + line.substring(index + 4)) : line;
+                        while ((index = line.indexOf("<br>", index + 1)) != -1) {
+                            brCount++;
+
+                            line = (brCount % 2 == 0) ? (line.substring(0, index) + "</br></br>" + line.substring(index + 4)) : line;
+                        }
+
+                        writer.write(line);
+                        writer.newLine();
+                    }
                 }
-
-                bufferedWriter.write(line);
-                bufferedWriter.newLine();
             }
-            bufferedWriter.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
